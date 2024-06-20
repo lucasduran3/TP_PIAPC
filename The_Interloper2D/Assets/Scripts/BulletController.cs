@@ -6,6 +6,7 @@ public class BulletController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private float force = 15f;
+    public string owner;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

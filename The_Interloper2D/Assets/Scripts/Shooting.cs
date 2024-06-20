@@ -9,10 +9,6 @@ public class Shooting : MonoBehaviour
     private bool canFire;
     private float timer;
     private float timeBeforeFiring = 0.2f;
-    void Start()
-    {
-       
-    }
 
     void Update()
     {
@@ -42,7 +38,8 @@ public class Shooting : MonoBehaviour
         if (Input.GetMouseButton(0) && canFire)
         {
             canFire = false;
-            Instantiate(bulletPrefab, bulletTransform.position, Quaternion.identity);
+            GameObject bullet = Instantiate(bulletPrefab, bulletTransform.position, Quaternion.identity);
+            bullet.GetComponent<BulletController>().owner = "player";
         }
     }
 }

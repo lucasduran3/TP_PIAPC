@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = new Vector2(translationX, translationY ) * speed;
         
-
     }
 
 }
