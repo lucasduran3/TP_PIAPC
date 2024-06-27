@@ -122,7 +122,8 @@ public class EnemyController : MonoBehaviour
     {
         Vector3 targetPosition = target.position;
         RotateTo(targetPosition);
-        agent.SetDestination(transform.position);
+        float distance = Vector3.Distance(targetPosition, transform.position);
+        agent.stoppingDistance = distance;
 
         shootingTimer += Time.deltaTime;
         if (shootingTimer > timeBeforeFiring)
@@ -143,11 +144,13 @@ public class EnemyController : MonoBehaviour
 
     private void Avoid()
     {
+        //Vector que apunta desde la posicion del enemigo hacia la del jugador
         Vector3 dirToPlayer = transform.position - target.position;
         Vector3 newPos = transform.position + dirToPlayer;
         RotateTo(newPos);
 
         agent.SetDestination(newPos);
+        agent.stoppingDistance = 0;
 
         timer += Time.deltaTime;
 
@@ -173,6 +176,7 @@ public class EnemyController : MonoBehaviour
     private static Vector3 RandomNavSphere(Vector3 origin, float dist, int layerMask)
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;
+        //Traslada la direccion aleatoria al espacio alrededor del enemigo
         randDirection += origin;
         NavMeshHit navhit;
         NavMesh.SamplePosition(randDirection, out navhit, dist, layerMask);
